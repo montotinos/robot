@@ -7,7 +7,10 @@
 
 package org.usfirst.frc.team4299.robot;
 
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -23,7 +26,8 @@ public class Robot extends IterativeRobot {
 	private static final String kCustomAuto = "My Auto";
 	private String m_autoSelected;
 	private SendableChooser<String> m_chooser = new SendableChooser<>();
-
+	Spark left = new Spark(0); 
+	Spark right = new Spark(1);
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -33,6 +37,7 @@ public class Robot extends IterativeRobot {
 		m_chooser.addDefault("Default Auto", kDefaultAuto);
 		m_chooser.addObject("My Auto", kCustomAuto);
 		SmartDashboard.putData("Auto choices", m_chooser);
+		
 	}
 
 	/**
@@ -52,6 +57,7 @@ public class Robot extends IterativeRobot {
 		// autoSelected = SmartDashboard.getString("Auto Selector",
 		// defaultAuto);
 		System.out.println("Auto selected: " + m_autoSelected);
+		
 	}
 
 	/**
@@ -68,6 +74,8 @@ public class Robot extends IterativeRobot {
 				// Put default auto code here
 				break;
 		}
+		
+		
 	}
 
 	/**
@@ -75,6 +83,12 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		XboxController controller = new XboxController(5);
+		double leftSpeed = controller.getY(Hand.kLeft); 
+		double rightspeed = controller.getY(Hand.kRight);
+		left.setSpeed(leftSpeed);
+		right.setSpeed(rightspeed);
+		
 	}
 
 	/**
